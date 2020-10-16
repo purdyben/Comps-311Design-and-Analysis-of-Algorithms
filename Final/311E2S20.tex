@@ -1,0 +1,419 @@
+
+\documentclass[12pt]{amsart}
+\usepackage{amsthm,amssymb,amsfonts,epic,epsfig,framed,fullpage,latexsym,enumerate}
+%\usepackage{framed}
+
+\usepackage{xcolor}
+
+\usepackage{comment}
+\usepackage{multirow}
+
+\newcommand{\adj}{\ensuremath{\mathrm{adj}}}
+
+\newcommand{\Length}{\ensuremath{\mathtt{length}}}
+\newcommand{\Jmin}{\ensuremath{\mathtt{jmin}}}
+\newcommand{\Min}{\ensuremath{\mathtt{min}}}
+\newcommand{\total}{\ensuremath{\mathtt{total}}}
+\newcommand{\DEG}{\ensuremath{\mathtt{deg}}}
+\newcommand{\NGN}{\ensuremath{\mathtt{numGreyNbrs}}}
+\newcommand{\COLOR}{\ensuremath{\mathtt{color}}}
+\newcommand{\white}{\ensuremath{\mathtt{white}}}
+\newcommand{\grey}{\ensuremath{\mathtt{grey}}}
+
+\newcommand{\dist}{\ensuremath{\mathtt{dist}}}
+\newcommand{\length}{\ensuremath{\mathtt{length}}}
+\newcommand{\Right}{\ensuremath{\mathtt{right}}}
+\newcommand{\Left}{\ensuremath{\mathtt{left}}}
+\newcommand{\Middle}{\ensuremath{\mathtt{middle}}}
+
+% Comments & responses (main text)
+\newcommand{\comm}[1]{\marginpar{\textsl{\color{red} #1}}}
+\newcommand{\commB}[1]{\marginpar{\textsl{\color{blue} #1}}}
+
+\newtheorem{lemma}{Lemma}
+%\usepackage{fullpage}
+\usepackage{newtxtext,newtxmath}
+%\usepackage{times,inconsolata}
+
+\usepackage[titlenotnumbered,linesnumbered,noend]{algorithm2e}
+
+\DeclareMathOperator{\val}{value}
+\DeclareMathOperator{\capac}{cap}
+
+\SetKwProg{Fn}{}{}{}
+\SetKwFunction{Heapify}{Heapify}%
+\SetKwFunction{Build}{BuildHeap}%
+\SetKwFunction{Heapsort}{Heapsort}%
+\SetKwFunction{Maximum}{Maximum}%
+\SetKwFunction{ExtractMax}{ExtractMax}%
+\SetKwFunction{InsertionSort}{InsertionSort}%
+\SetKwFunction{MergeSort}{MergeSort}%
+\SetKwFunction{MergeSortIII}{MergeSort3}%
+\SetKwFunction{Merge}{Merge}%
+\SetKwFunction{Mystery}{Mystery}%
+\SetKwFunction{Subroutine}{Subroutine}%
+\SetKwFunction{isMajElement}{IsMajElement}%
+\SetKwFunction{findMajority}{findMajority}%
+
+
+\mathchardef\mhyphen="2D
+
+\newcounter{pNum}
+
+
+\newcommand{\problem}[2]{\addtocounter{pNum}{1}
+\section*{Problem \arabic{pNum}: #1 (#2 Points)}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+
+%\hspace{0.11cm} \vspace{2cm}
+
+\title{
+Computer Science 311\\
+Spring 2020\\
+Midterm Exam 2 \\
+April 15 8:00 am to April 17, 7:59 am
+}
+
+\maketitle
+
+
+%\vspace{1cm}
+
+\section*{Instructions}
+
+\begin{itemize}
+%\item
+%This is a closed-books and closed-notes exam.
+\item
+You have {\bf 48} hours to complete the exam, including the uploading time of your solutions. 
+\item 
+There are four questions and one bonus question. The maximum possible score is 70; the number of points for each problem is indicated on the next page.
+\item
+Read all questions carefully before starting.
+\item
+Since the exam is conducted remotely, questions should be asked on {\bf Piazza only}. Note that we do {\bf NOT} answer questions through emails. 
+\item All questions should be only for clarification purposes. Please keep your questions concise. We can NOT have lengthy discussions like we usually answer homework questions on Piazza.
+\item Due to the challenges of conducting the exam remotely, we can only try to answer the questions in time when we see them. However, we cannot guarantee how fast we can respond. If you have questions, please ask early.
+\item
+We expect clear and concise answers.  Think carefully before you write; make sure that every word you write counts. 
+\item
+If you do not know the answer to a problem, write ``\emph{I don't know}'' and you will earn approximately 20\% of the points for that problem.
+%\item
+%Clearly state any simplifying assumptions you make in solving a problem.
+\item
+When asked to provide an algorithm, remember to
+\begin{itemize}
+\item
+describe the algorithm clearly,
+\item
+analyze the running time of the algorithm.
+\end{itemize}
+%\item
+%Write all your answers legibly on the space provided in the exam paper.  
+%\item
+%We have supplied scratch paper at the end of 
+%this exam.  If you need additional paper, let us know.
+\item For any algorithm, your grade will depend on the efficiency of your algorithm.
+\end{itemize}
+
+\vfill
+
+
+\begin{framed}
+\vspace{-0.3cm}
+\section*{Write Your Name and Your Recitation Section Number Here}
+\begin{center}{\hspace{2cm}} \end{center}
+\vspace{1cm}
+\end{framed}
+\vfill
+
+\newpage
+
+\vfill
+
+\hspace{0cm}
+
+\vfill
+
+\section*{Your Score}
+
+\vfill
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Problem &
+Points &
+Score \\ \hline
+1 & 15 & \\ \hline
+2 & 15 & \\ \hline
+3 & 15 & \\ \hline
+4 & 15 & \\ \hline
+Bonus & 10 & \\ \hline
+Total & 70 & \\
+\hline
+\end{tabular}
+\end{center}
+
+\vfill
+
+\hspace{0cm}
+
+\vfill
+
+\newpage
+
+\newpage
+
+\problem{Divide-and-Conquer}{15}
+
+\begin{enumerate}[(a)]
+\item (7 points)
+%This problem has two parts on divide and conquer and recurrences.
+Short questions; no justifications needed, except for partial credit. No credit for writing  ``I don't know.'' 
+%{\color{red} (Kevin: How about asking students to write justifications for (ii) and allow some partial credit?)}
+\begin{enumerate}[(i)] 
+\item (2 points)
+Consider the following recurrence: $T(n) = 4T(n/2) + n^2$, $T(1) = 1$. What is $T(8)$?
+
+\vfill
+
+\item (2 points)
+Which case of the Master Theorem applies, 1, 2, or 3?
+\vfill
+
+\item (3 points)
+What is the asymptotic bound of $T(n)$?
+
+\vfill
+
+\end{enumerate}
+
+\newpage
+
+\item (5 points)
+Solve the following recurrence: $T(n) = 2T(n/4) + T(n/2) + n$, $T(1) = 1$.
+You must show how you arrive at the solution.
+
+\end{enumerate}
+
+
+\newpage
+
+\problem{Graphs}{15}
+
+\begin{enumerate}[(a)]
+\item (7 points)
+Consider the undirected graph $G$ below.
+
+\smallskip
+\begin{center}
+\includegraphics[width=0.5\textwidth]{fig_2a.eps}
+\end{center}
+
+\smallskip
+\begin{enumerate}[(i)]
+\item (3.5 points)
+Draw the breadth-first search tree for G assuming that the search starts at node $a$ and that ties among nodes are broken according to the alphabetical order.
+
+
+\vfill
+\item (3.5 points)
+Draw the depth-first search tree for G assuming that the search starts at node $a$ and that ties among nodes are broken according to the alphabetical order.
+
+\vfill
+
+\end{enumerate}
+
+
+
+\newpage
+\item (4 points)
+Draw two topological orderings of the following graph.
+
+\vspace{2mm}
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{fig_2b.eps}
+\end{center}
+
+\vfill
+
+\item (4 points)
+State all strongly connected components of the following graph (in the form of $\{a,b,...\}$, $\{...\}$, ... ).
+\vspace{2mm}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{fig_2c.eps}
+\end{center}
+
+\vfill
+
+\end{enumerate}
+
+
+\newpage
+
+
+
+\problem{Graphs}{15}
+
+\begin{enumerate}[(a)]
+\item (7 points)
+Let $G= (V,E)$ be a directed graph.
+The length of each edge in $G$ is one.
+Define $G^{2} = (V,E')$ as follows: for vertices $u,v \in V$,
+$(u,v) \in E'$ if there is a path of length two between $u$ and $v$ in $G$.
+Suppose that a directed graph is given as adjacency matrix.
+Design an algorithm to compute $G^2$.
+Derive the running time of your algorithm. 
+
+
+\newpage
+
+\item(8 points)
+Given a directed graph $G = (V, E)$ with $|V| = m$ and $|E| = n$, a vertex $v$ is said to be a ground vertex if there is a path from every other vertex of the graph to $v$.
+Note that a graph may have multiple ground vertices.  
+Given the adjacency list representation of $G$, design an algorithm to find a ground vertex if one exists. 
+If the graph has multiple ground vertices, then it suffices to output one of them.
+Derive the running time of your algorithm.
+Your grade will depend on the efficiency of your algorithm. 
+
+
+\end{enumerate}
+
+\newpage
+
+\problem{Dvide and Conquer}{15}
+
+Suppose that $\mathtt{Subroutine}(A,B)$ takes as argument two arrays of integers $A$, $B$ and returns an array. 
+The running time is $O(n)$, where $n$ is the number of elements of $A$ plus the number of elements in $B$.
+The above algorithm is used in the recursive \Mystery algorithm given below.
+
+%\begin{verbatim}
+%1 Mystery(A) 					
+%2 if $n = 1$, return A[0].
+%3 $A_{1} = A[0]\ldots A[n/2]$ // The first half of $A$.
+%4 $A_{2} = A[n/2]\ldots A[n]$ // The second half of $A$.
+%5 $A_{3} = A[n/4]\ldots A[3n/4]$ // The middle half of $A$..
+%6 $B_1 = Mystery(A_1)$.
+%7 $B_2 = Mystery(A_2)$.
+%8 $B_3 = Mystery(A_3)$.
+%9 $a =$ Subroutine($B_1$, $B_2$).
+%10 $b =$ Subroutine($B_2$, $B_3$).
+%11 return $a + b$. // Constant ($O(1)$) time
+%\end{verbatim}
+
+\smallskip
+\begin{algorithm}[H]
+\Fn(){\Mystery{$A$}}{
+%\KwIn{An array of integers $A = \langle A[0], A[1], \dots , A[n] \rangle$.}
+%\KwOut{The adjacency list representation of $\Grev$.}
+\SetAlgoLined
+\SetNoFillComment
+\DontPrintSemicolon
+	\If{$n == 1$}{
+		\Return{$A[0]$}
+	}
+	$A_{1} = \langle A[0]\ldots A[n/2-1] \rangle$  \tcp*{The first half of $A$.}
+	$A_{2} = \langle A[n/2]\ldots A[n-1] \rangle$  \tcp*{The second half of $A$.}
+	$A_{3} = \langle A[n/4]\ldots A[3n/4-1] \rangle$  \tcp*{The middle half of $A$.}
+	$B_1 = \Mystery(A_1)$ \\
+	$B_2 = \Mystery(A_2)$ \\
+	$B_3 = \Mystery(A_3)$ \\
+	$C_1 = \Subroutine(B_1, B_2)$ \\
+	$C_2 = \Subroutine(B_2, B_3)$ \\
+	$C_3 = \langle C_1[0] \ldots C_1[n/2-1], C_{2}[n/2]\ldots C_{2}[n-1] \rangle$ \tcc*{Concatenating 1st half of $C_{1}$ and 2nd half of $C_{2}$}
+	\Return{$C_3$} \tcp*{Constant $O(1)$ time.}
+}
+%\textcolor{blue}{\caption{$\MergeSort(A)$}\label{alg:MergeSort}}
+\end{algorithm}
+
+\smallskip
+Let $T(n)$ denote the running time of Mystery on an array of n elements.
+
+\medskip
+\begin{enumerate}[(a)]
+
+\item(7 points) Write the recurrence equation for $T(n)$. (Hint: You may use the following facts: (1) the formula for the geometric series $\sum\limits_{k=0}^{m-1} ar^k = a\left( \frac{r^m - 1}{r - 1}\right)$, for any $r \neq 1$; and (2) $a^{\log_b n} = n^{\log_b a}$.)
+
+\newpage
+
+\item(8 points) What is the running time of \Mystery on $n$-element array? Justify your answer. You are not allowed to use the Master Theorem.
+
+
+\end{enumerate}
+
+\newpage
+
+\problem{Bonus Question:}{10}
+
+Suppose that $A$ is an array of natural numbers, i.e., elements in $\{1,2,3,\ldots\}$. 
+An element $x$ in $A$ is called a \textbf{majority element} if \textit{strictly} more than half the array cells contain value $x$. For example, $1$ is the majority element of $[1,2,1,1]$. Suppose that the following algorithm is available to us:
+
+\smallskip
+\isMajElement($B$, $x$): Takes in an array $B$ of natural numbers and a natural number $x$ and returns true if and only if $x$ is the majority element in $B$. 
+The running time is $O(n)$, where $n$ is the length of $B$.
+
+\begin{enumerate}[(a)]
+\item(4 points) Complete the following \textit{recursive} algorithm which takes in an array $A$ of natural numbers, and returns the majority element $x$ if there is one, and $-1$ otherwise. Note: No points will be given for non-recursive solutions. ({\em Hint:} In order for some element x to be a majority element in an array, it must be a majority element of either the left half, the right half, or both.) 
+
+%\smallskip
+%\begin{verbatim}
+%findMajority(A){
+%    if(|A| == 1): return A[0]
+%    \\YOUR PSEUDOCODE HERE
+%}
+%\end{verbatim}
+
+
+\smallskip
+\begin{algorithm}[H]
+\Fn(){\findMajority{$A$}}{
+%\KwIn{An array of integers $A = \langle A[0], A[1], \dots , A[n] \rangle$.}
+%\KwOut{The adjacency list representation of $\Grev$.}
+\SetAlgoLined
+\SetNoFillComment
+\DontPrintSemicolon
+	\If{$(|A| == 1)$}{
+		\Return{$A[0]$}
+	}
+	\tcp{You pseudocode here:}
+	\vspace{5.5in}
+}
+%\textcolor{blue}{\caption{$\MergeSort(A)$}\label{alg:MergeSort}}
+\end{algorithm}
+
+
+\newpage
+
+\item(3 points) What is the recurrence equation of your algorithm? (No justification required, just write the recurrence).
+
+\vfill
+
+\item(3 points) What is the running time of your algorithm? (No justification required, just write the running time in Big-O notation)
+
+\vfill
+
+\end{enumerate}
+
+\newpage
+\section*{Scratch Paper}
+
+\pagebreak
+\section*{Scratch Paper}
+
+\pagebreak
+\section*{Scratch Paper}
+
+
+\pagebreak
+\section*{Scratch Paper}
+
+
+%\vfill
+
+\end{document}

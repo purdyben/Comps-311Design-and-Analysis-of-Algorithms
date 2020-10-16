@@ -1,0 +1,142 @@
+\title{311 Home Work 3}
+\author{
+   Ben purdy
+}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage{tikz-qtree}
+
+\usepackage{algorithmic}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\newtheorem{theorem}{Theorem}
+\usepackage{algorithmic}
+\usepackage[noline,ruled,noend]{algorithm2e}
+\setlength{\algomargin}{7.5pt}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\begin{document}
+\maketitle
+\tikzset{every tree node/.style={minimum width=2em,draw,circle},
+         blank/.style={draw=none},
+         edge from parent/.style=
+         {draw,edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}},
+         level distance=1.5cm}
+
+(1) The reverse (or transpose) of a directed graph $G = (V, E)$ is the graph $G^rev = (V, E^rev)$,
+where $Erev = \{ (v, u) \in V \times V : (u, v) \in E \}$. Thus, $G^rev$ is G with all its edges reversed.
+Describe efficient algorithms for computing $G^rev$ from G, for both the adjacency-list and
+adjacency-matrix representations of G. Analyze the running times of your algorithms.
+\break
+
+for a graph as represented as a linked list of edges per vertex \\
+(i.e., adjacency lists).\\
+\begin{algorithm}[H]
+\SetAlgoLined
+ TGraph\;
+ \For{ i = 0; i $<$ vertices; i++}{
+ 	\For{ j = 0; j $<$ v.edges; j++}{
+ 	 $Add \; reversed \; edge\; to \; TGraph$\;
+ 	}
+  instructions\;
+ }
+ \caption{How to write algorithms}
+\end{algorithm}
+\begin{proof}
+Now in this algorithm you touch every vertice in the list giving use O(v) and also over the hold list we find E edges so the total opporations is given as V+E which equals $O(V+E)$
+
+\end{proof}
+
+Adjacency matrix representation \\
+\begin{algorithm}[H]
+\SetAlgoLined
+ TGraph\;
+ \For{ i = 0; i $<$ rows i++}{
+ 	\For{ j = 0; j $<$ cols; j++}{
+ 	 $swap(G[i, j], G[j, i])$\;
+ 	}
+  instructions\;
+ }
+ \caption{How to write algorithms}
+\end{algorithm}
+\begin{proof}
+Trivially since you touch every point in a 2d array the time complexity becomes $O(n^2)$
+\end{proof}
+
+
+
+(2) Give an algorithm that determines whether or not a given undirected graph contains a
+cycle. Your algorithm should run in $O(V )$ time, independent of $|E|$
+\break
+
+\begin{algorithm}[H]
+\SetAlgoLined
+	\While{root.edge has edges and cycle != 1}{
+		\eIf{root.edge != visited}{
+			mark root.edge  as  visited\;
+			int cycle = DfsCycle(root.edge)\;
+		}{
+			//found a cycle\;
+			return 1\;
+		}	
+		next root edge\;
+	}
+ return cycle\;
+ \caption{DfsCycle}
+\end{algorithm}
+\begin{proof}
+this algorithm runs a DFS. We know a DFS runs in $O(V + E)$time. . Since this is a acyclic graph that means there are $|E| \leq |V| + 1$ edges in the graph. This in turn means that the worst case running time is when we don't find a cycle and we finish the algorithm. giving us an upper bound of $O(V+1) = O(V)$   
+
+\end{proof}
+
+\break
+(3) A directed graph G is semiconnected if, for any two vertices $u, v \in V $, there is a path from
+u to v or a path from v to u (or both). Give an algorithm which determines if a given graph
+is semiconnected.
+
+\begin{proof}[Solution] $\;$\\
+	\begin{algorithm}[H]
+\SetAlgoLined
+a topological sort on G
+to get the ordering of its vertices\;
+\For{ i=0; from i to k}{
+	\If{there is no edge from vi to vi+1}{
+		return FALSE
+	}
+}
+return true;
+ \caption{semiconnected}
+\end{algorithm}
+
+\end{proof}
+
+(4) Let $G = (V, E)$ be a directed graph where $V = {1, 2, . . . , n}$ such that n is odd, i.e.,
+$n = 2k + 1$ for some integer $k > 0$. Given a vertex v, let $T O_v$ be the set of all vertices from
+which there is a path to v. Let $FROM_v$ be the set of all vertices for which there is a path
+from $v, i.e.,$
+
+T Ov = {u|There is a path from u to v},
+F ROMv = {w|There is a path from v to w}.
+A vertex v is called the center vertex of G if all of the following conditions hold:
+\begin{itemize}
+\item
+$|T O_v| = |F ROM_v| = k$, i.e., both $T O_v$ and $F ROM_v$ have exactly k vertices.
+\item
+$T O_v \cap F ROM_v = 0$, i.e, $T O_v$ and $F ROM_v$ are disjoint.
+\end{itemize}
+
+Design an algorithm that gets a graph G (with an odd number of vertices) as input and
+determines if the graph has a center vertex or not. If the graph has a center vertex, then
+the algorithm must output it. Describe your algorithm and derive the time complexity
+
+\begin{proof}[Solution] $\;$\\
+
+I DO NOT NOW
+
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,250 @@
+\title{311 Home Work 1}
+\author{
+   Ben purdy
+}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\newtheorem{theorem}{Theorem}
+
+\usepackage[noline,ruled]{algorithm2e}
+\setlength{\algomargin}{7.5pt}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\begin{document}
+\maketitle
+
+\section{}
+
+a. f(n) = \ensuremath{\Theta} g(n)\\
+b. f(n) = Og(n)\\
+c. f(n) = \ensuremath{\Theta}  g(n)\\
+d. f(n) = Og(n)\\
+e. f(n) = \ensuremath{\Omega} g(n)\\
+f. f(n) = \ensuremath{\Omega} g(n)\\
+g. f(n) = \ensuremath{\Omega} g(n)\\
+h. f(n) = Og(n)\\
+i. f(n) = \ensuremath{\Omega} g(n)\\
+j. f(n) = Og(n)\\
+k. f(n) = Og(n)\\
+l. f(n) = \ensuremath{\Omega} g(n)\\
+m. f(n) = Og(n)\\
+\pagebreak[4]
+\section{}
+ \[ p(n) =\sum_{i=0}^d = a_i n^i\]
+where $a_d >$ 0, be a degree-d polynomial in n, and let k be a constant. Use the definitions
+of the asymptotic notations to prove the following properties.\\
+(a) If d $\geqslant$ , then p(n) = O(nk).\\
+(b) If k $\leqslant$ d, then p(n) = \ensuremath{\Omega} (nk).\\
+(c) If k = d, then p(n) = \ensuremath{\theta}(nk).\\
+%=================================
+\begin{proof} (a)
+
+let c = 1, n = 0
+
+since d $\leqslant$ k  the $n^d  \leqslant c \cdot n^k $
+
+ $\forall n_0<n,  p(n^d)\leqslant c\cdot g(n^k)$
+ 
+ then $p(n) = O(n^k)$
+ 
+\end{proof}
+ %=================================
+\begin{proof} (b)\\
+
+let c = 1, n = 0
+since $d\geqslant k$  
+
+$n^k \leqslant n^d \Rightarrow g(n) \leqslant p(n) $
+
+ $\forall n_0<n, c\cdot g(n^k) \leqslant  p(n^d)$
+ 
+ then $p(n) = \Omega(n^k)$
+ 
+\end{proof}
+ %=================================
+ \begin{proof} (c) \\
+ 
+ $k = d$ where $g(n) = n^k$ and $f(n) = n^d$
+ 
+ let $c_1$ = 2 and n = 0
+ 
+ then $p(n) \leqslant c\cdot g(n) $ since $ n^d \leqslant  2n^k$
+ 
+ this shows us that $p(n) = \Omega g(n)$
+ 
+ now show $ c_2 \cdot g(n) \leq p(n)$ for sum $c_2 > 0$ 
+ 
+ let $c_2 = 1$ 
+ 
+$n^d = 1\cdot n^k$
+
+$p(n) = g(n)$
+
+$p(n)  = \theta g(n) $
+ \end{proof}
+
+
+ 
+ 
+
+	
+\section{}%=======3
+Give Big-O bounds, in terms of n, for the worst-case running times of each of the code
+fragments below. In each case, assume that A and B are arrays of integers. You should
+formally derive the running times of each algorithm and then give the Big-O result (it does
+not suffice to merely state running times or give high-level explanations of running times).\\\\\\
+%======
+(a)\\
+
+algorithm A 
+
+running time is dictated by line 3,5,6
+
+  $t_0 = \sum_{i=0}^{n-1} t_1$,  $t_1 = \sum_{j=0}^{n-1} t_2$, and   $t_2 = \sum_{k=0}^{j} 1$ 
+
+from A we get  $t_1 = T_5$, $t_2 = T_6$
+
+\begin{align*}
+ T(n) =&\sum_{i=0}^{n-1} t_1\\
+ =&\sum_{i=0}^{n-1}\sum_{j=0}^{n-1} t_2 \\
+ =&\sum_{i=0}^{n-1}\sum_{j=0}^{n-1} \sum_{k=0}^{j} 1 \\
+ since \; &t_2  = j
+\end{align*}
+%
+ %$\dfrac{n(n+1)}{2}$\\
+\begin{align*}
+&t_1 = \sum_{j=0}^{n-1} j = \dfrac{n(n+1)}{2}\\
+&t_0 =  \sum_{i=0}^{n-1} t_1 = n\cdot\dfrac{n(n+1)}{2}\\
+&T(n) = \dfrac{n^3+n^2}{2}\\
+so  \; &T(n) = O(n^3) \; \square
+\end{align*}
+\pagebreak[4]
+\\%=+=====================
+(b)\\
+Algorithm B\\
+B contains two loops, so $T(n) = \sum_{i=0}^{n} t_1$ and $t_1 =\sum_{j=1}^{i} 2^i $\\
+\begin{align*}
+T(n) = &\sum_{i=0}^{n} t_1 \\
+= &\sum_{i=0}^{n} \sum_{j=1}^{i} 2^i\\
+\Rightarrow &\sum_{j= 1}^{i} 2^i = log_2(n)\\
+&\sum_{i=0}^{n} log_2(n) = n \cdot log_2(n) \\
+&hence \; T(n) = O(nlog(n)) \; \square\\
+\end{align*}
+%=============
+(c)
+
+Are the big-O bounds of parts (a) and (b) also $\Theta$ bounds?\\
+(a) Theta for part A\\
+Let $c_1 = 2, c_2 = \dfrac{1}{2},$ and $n_0 = 0$\\ 
+f(n) = O(A) there A is the run time of the algorithm in part A $Og(n) = n^3$\\
+then $f(n)\leq c_1 \cdot g(n)$\\
+hence  g(n) is a upper bound to f(n), f(n) = O(g(n))\\
+now to find $\Omega g(n)$\\
+since $c_2 = \dfrac{1}{2},$ \\
+then $f(n) \geq c_2 \cdot g(n)$\\
+showing that $\Theta (n^3)$ holds $\square$\\
+%
+%
+%
+%$T(n) = nlog(n) $
+%$n! \leq (n/2)^n$ 
+% omega nlogn ≥ n.wlogn-n/2
+\pagebreak[4]
+%==================================
+\section{} %4
+\begin{proof} 4\\
+%========
+Initialization: It is true before the first iteration of the loop.
+shown by left equaling the first index of the array. The right holds because it equals the last index of the array\\
+left = 0, right = A.length-1\\ so $left \leq right$
+
+%=======
+
+Maintenance: since A is sorted the Initialization implies that at no point throughout the algorithm will right $>$ left
+
+Without loss of generality let i $\leq$ j 
+
+now $\forall \; entrys \; left, i \in A.$ $left \leq i$ 
+
+and $\forall \; entrys \; right, j \in A.$ $j \leq right$
+
+left $\leq$ i and j $\leq$ right $\Rightarrow$
+left $\leq$ i $\leq$ j $\leq$ right\\
+for some given T if there exist indices i, j in A such that A[i] + A[j] = T. Becuase the array is sorted indices left, right will behave based on whether A[left] + A[right] $>$ T or A[left] + A[right] $<$ T.\\
+
+case 1: A[left] + A[right] $>$ T
+
+\begin{minipage}{\dimexpr\textwidth-3cm}
+then by moving the right to the left by one  
+
+A[left] + A[right]  $\geq$ A[left] + A[right-1] holds  
+\end{minipage}\\
+
+
+case 2: A[left] + A[right] $<$ T.
+
+\begin{minipage}{\dimexpr\textwidth-3cm}
+then by moving the left to the right  A[left] + A[right]  $\geq$ A[left] + A[right-1] holds  
+\end{minipage}\\
+
+case 3: A[i] + A[j] = T
+
+\begin{minipage}{\dimexpr\textwidth-3cm}
+the algorithum terminates because we have found indices i,j
+\end{minipage}\\
+
+Theses three cases will insure that the left, right will found indices i, j if indices i, j exist
+\\
+%========
+
+Termination: At termination, left $>$ right\\ 
+since left = 0 and right = n-1 in array A[0,..,n-1] for left $>$ right the whole array will have been iterated through. Because A is a finite set this algorithm will terminate 
+\end{proof}
+
+%==================================
+\section{} 
+A full binary tree is a binary tree where each node is either a leaf or has exactly 2 children.
+There are no nodes with only one child.
+The internal path length of a full binary tree is the sum, taken over all internal nodes
+of the tree, of the depth of each node. Likewise, the external path length is the sum,
+taken over all leaves of the tree, of the depth of each leaf. Consider a full binary tree with
+n internal nodes, internal path length i, and external path length e. Prove that
+e = i + 2n.
+\begin{proof} By Induction 
+
+	Base: let n = 1 then the graph has exactly 2 leaf attached to the root. 
+	
+	so i = 0 and e = 2 since the path to each leaf is one.
+	
+	e = i + 2(n) = 0 + 2(1) = 2\\
+
+	Step:  Assume theorem holds for the hole binary tree with n-2 nodes
+	
+	let s be the hight of a node with two leafs removing the leafs from that node we get
+	
+	now I' = I-s and N' = N-1
+	%so E' = I'+ N' - 1
+
+	\begin{align*}
+	E &= E' + 2(s+1) -s = E' +s+2\\
+	or \; E' &= E-s-2 = I+2N -s -2\\
+	 plug \; &in\\
+	 I &= I' + s\\
+	 N &= N' +1\\
+	 so \; E' &= I' + s + 2(N' +1) -s -2\\
+	 &= I' +2N'
+	\end{align*}
+	
+\end{proof}
+ 
+% $p(n) =\sum_{i=0}^d = a_i n^i$
+
+\bibliographystyle{abbrv}
+\bibliography{main}
+
+\end{document}
+This is never printed
